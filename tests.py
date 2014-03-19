@@ -1,14 +1,14 @@
 import unittest
 import datetime
 
-from relative_timeframes import parse_date, RelativeParseError
+from relative_timeframes import parse_relative_daterange, RelativeParseError
 
 DEFAULT_TEST_DATE = datetime.date(2014, 3, 18)
 
 class TestParseDate(unittest.TestCase):
     def assertParsesToRange(self, input, expected_start, expected_end, dt=None):
         dt = dt or DEFAULT_TEST_DATE
-        range_start, range_end = map(str, parse_date(input, dt))
+        range_start, range_end = map(str, parse_relative_daterange(input, dt))
         self.assertEqual((expected_start, expected_end), (range_start, range_end), 
             'input = %s, expected = %s, got %s' % (
             input, (expected_start, expected_end), (range_start, range_end)
@@ -16,7 +16,7 @@ class TestParseDate(unittest.TestCase):
 
     def test_fails_correctly(self):
         for bad in ('this', 'is', 'bad', 'data'):
-            self.assertRaises(RelativeParseError, parse_date, bad)
+            self.assertRaises(RelativeParseError, parse_relative_daterange, bad)
 
     def test_implemented_all_the_planned_methods(self):
         implemented = []
@@ -32,7 +32,7 @@ class TestParseDate(unittest.TestCase):
         ):
             complete_input = input.replace('_n_', '_2_')
             try:
-                parse_date(complete_input)
+                parse_relative_daterange(complete_input)
                 implemented.append(input)
             except RelativeParseError:
                 not_implemented.append(input)

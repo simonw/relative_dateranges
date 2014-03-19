@@ -5,7 +5,7 @@ handlers = []
 class RelativeParseError(ValueError):
 	pass
 
-def parse_date(input, dt=None):
+def parse_relative_daterange(input, dt=None):
 	"Given a string e.g. tomorrow, next_5_days, this_year returns an inclusive date range tuple"
 	dt = dt or datetime.date.today()
 	for string_or_regex, fn in handlers:
