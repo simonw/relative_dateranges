@@ -26,14 +26,15 @@ class TestParseDate(unittest.TestCase):
         for input in (
             'today', 'yesterday',
             'this_day', 'this_week', 'this_month', 'this_year',
-            'this_2_days', 'this_2_weeks', 'this_2_months', 'this_2_years',
+            'this_n_days', 'this_n_weeks', 'this_n_months', 'this_n_years',
             'previous_day', 'previous_week', 'previous_month', 'previous_year',
-            'previous_2_days', 'previous_2_weeks', 'previous_2_months', 'previous_2_years',
+            'previous_n_days', 'previous_n_weeks', 'previous_n_months', 'previous_n_years',
             'next_day', 'next_week', 'next_month', 'next_year',
-            'next_2_days', 'next_2_weeks', 'next_2_months', 'next_2_years',
+            'next_n_days', 'next_n_weeks', 'next_n_months', 'next_n_years',
         ):
+            complete_input = input.replace('_n_', '_2_')
             try:
-                parse_date(input)
+                parse_date(complete_input)
                 implemented.append(input)
             except RelativeParseError:
                 not_implemented.append(input)
@@ -171,6 +172,15 @@ class TestParseDate(unittest.TestCase):
         self.assertParsesToRange('next_month',
             '2015-01-01', '2015-01-31',
             dt = datetime.date(2014, 12, 31)
+        )
+
+    def test_next_year(self):
+        self.assertParsesToRange('next_year',
+            '2015-01-01', '2015-12-31'
+        )
+        self.assertParsesToRange('next_year',
+            '2016-01-01', '2016-12-31',
+            dt = datetime.date(2015, 12, 31)
         )
 
     def test_next_x_months(self):
