@@ -195,6 +195,18 @@ class TestParseDate(unittest.TestCase):
             '2014-04-01', '2015-06-30'
         )
 
+    def test_next_x_years(self):
+        self.assertParsesToRange('next_2_years',
+            '2015-01-01', '2016-12-31'
+        )
+        self.assertParsesToRange('next_2_years',
+            '2015-01-01', '2016-12-31',
+            dt = datetime.date(2014, 12, 31)
+        )
+        self.assertParsesToRange('next_15_years',
+            '2015-01-01', '2029-12-31'
+        )
+
 
 if __name__ == "__main__":
     unittest.main()

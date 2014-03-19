@@ -85,19 +85,19 @@ def this_x_years(dt, n):
 
 @match('next_day')
 @match('tomorrow')
-def tomorrow(dt):
+def next_day(dt):
 	start = dt + datetime.timedelta(days = 1)
 	return start, start
 
 @match('previous_day')
 @match('yesterday')
-def yesterday(dt):
+def previous_day(dt):
 	start = dt - datetime.timedelta(days = 1)
 	return start, start
 
 @match(re.compile('^next_(\d+)_days$'))
 def next_x_days(dt, n):
-	start = dt + datetime.timedelta(days = 1) # tomorrow
+	start = next_day(dt)[0]
 	end = start + datetime.timedelta(days = n - 1)
 	return start, end
 
@@ -133,3 +133,12 @@ def next_year(dt):
 	this_start, this_end = this_year(dt)
 	start = this_start.replace(year = this_start.year + 1)
 	return this_year(start)
+
+@match(re.compile('^next_(\d+)_years$'))
+def next_n_years(dt, n):
+	this_start, this_end = this_year(dt)
+	start = this_start.replace(year = this_start.year + 1)
+	end = start.replace(year = start.year + n)
+	end = previous_day(end)[0]
+	return start, end
+
