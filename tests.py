@@ -87,6 +87,10 @@ class TestParseDate(unittest.TestCase):
         self.assertParsesToRange('this_37_months',
             '2014-03-01', '2017-03-31'
         )
+        self.assertParsesToRange('this_2_months',
+            '2014-12-01', '2015-01-31',
+            dt = datetime.date(2014, 12, 31)
+        )
 
     def test_this_x_years(self):
         self.assertParsesToRange('this_2_years',
@@ -135,6 +139,27 @@ class TestParseDate(unittest.TestCase):
         self.assertParsesToRange('next_week',
             '2015-01-04', '2015-01-10',
             dt = datetime.date(2014, 12, 31)
+        )
+
+    def test_next_month(self):
+        self.assertParsesToRange('next_month',
+            '2014-04-01', '2014-04-30'
+        )
+        self.assertParsesToRange('next_month',
+            '2015-01-01', '2015-01-31',
+            dt = datetime.date(2014, 12, 31)
+        )
+
+    def test_next_x_months(self):
+        self.assertParsesToRange('next_2_months',
+            '2014-04-01', '2014-05-31'
+        )
+        self.assertParsesToRange('next_2_months',
+            '2015-01-01', '2015-02-28',
+            dt = datetime.date(2014, 12, 31)
+        )
+        self.assertParsesToRange('next_15_months',
+            '2014-04-01', '2015-06-30'
         )
 
 
