@@ -142,3 +142,8 @@ def next_n_years(dt, n):
 	end = previous_day(end)[0]
 	return start, end
 
+@match(re.compile('^previous_(\d+)_days$'))
+def previous_n_days(dt, n):
+	end = previous_day(dt)[0]
+	start = end - datetime.timedelta(days = n - 1)
+	return start, end

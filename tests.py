@@ -207,6 +207,14 @@ class TestParseDate(unittest.TestCase):
             '2015-01-01', '2029-12-31'
         )
 
+    def test_previous_x_days(self):
+        self.assertParsesToRange('previous_2_days',
+            '2014-03-16', '2014-03-17'
+        )
+        self.assertParsesToRange('previous_2_days',
+            '2013-12-30', '2013-12-31',
+            dt = datetime.date(2014, 1, 1)
+        )
 
 if __name__ == "__main__":
     unittest.main()
