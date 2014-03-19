@@ -147,3 +147,13 @@ def previous_n_days(dt, n):
 	end = previous_day(dt)[0]
 	start = end - datetime.timedelta(days = n - 1)
 	return start, end
+
+@match(re.compile('^previous_(\d+)_weeks$'))
+def previous_n_weeks(dt, n):
+	this_week_start = this_week(dt)[0]
+	start = this_week_start - datetime.timedelta(days = n * 7)
+	return start, this_week_start - datetime.timedelta(days = 1)
+
+@match('previous_week')
+def previous_week(dt):
+	return previous_n_weeks(dt, 1)

@@ -9,11 +9,9 @@ class TestParseDate(unittest.TestCase):
     def assertParsesToRange(self, input, expected_start, expected_end, dt=None):
         dt = dt or DEFAULT_TEST_DATE
         range_start, range_end = map(str, parse_date(input, dt))
-        self.assertEqual(range_start, expected_start, 'input = %s, expected start = %s, got %s' % (
-            input, expected_start, range_start
-        ))
-        self.assertEqual(range_end, expected_end, 'input = %s, expected end = %s, got %s' % (
-            input, expected_end, range_end
+        self.assertEqual((expected_start, expected_end), (range_start, range_end), 
+            'input = %s, expected = %s, got %s' % (
+            input, (expected_start, expected_end), (range_start, range_end)
         ))
 
     def test_fails_correctly(self):
@@ -214,6 +212,20 @@ class TestParseDate(unittest.TestCase):
         self.assertParsesToRange('previous_2_days',
             '2013-12-30', '2013-12-31',
             dt = datetime.date(2014, 1, 1)
+        )
+
+    def test_previous_x_weeks(self):
+        self.assertParsesToRange('previous_2_weeks',
+            '2014-03-02', '2014-03-15'
+        )
+        self.assertParsesToRange('previous_2_weeks',
+            '2013-12-15', '2013-12-28',
+            dt = datetime.date(2014, 1, 1)
+        )
+
+    def test_previous_week(self):
+        self.assertParsesToRange('previous_week',
+            '2014-03-09', '2014-03-15'
         )
 
 if __name__ == "__main__":
