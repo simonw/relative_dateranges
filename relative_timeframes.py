@@ -6,6 +6,7 @@ class RelativeParseError(ValueError):
 	pass
 
 def parse_date(input, dt=None):
+	"Given a string e.g. tomorrow, next_5_days, this_year returns an inclusive date range tuple"
 	for string_or_regex, fn in handlers:
 		if isinstance(string_or_regex, basestring):
 			if input == string_or_regex:
