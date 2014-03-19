@@ -228,23 +228,16 @@ class TestParseDate(unittest.TestCase):
             '2014-03-09', '2014-03-15'
         )
 
-    def test_previous_x_months(self):
-        self.assertParsesToRange('previous_2_months',
-            '2014-01-01', '2014-02-28'
-        )
-        self.assertParsesToRange('previous_2_months',
-            '2013-11-01', '2013-12-31',
-            dt = datetime.date(2014, 1, 1)
+    def test_previous_x_years(self):
+        self.assertParsesToRange('previous_2_years',
+            '2012-01-01', '2013-12-31'
         )
 
-    def test_previous_month(self):
-        self.assertParsesToRange('previous_month',
-            '2014-02-01', '2014-02-28'
+    def test_previous_year(self):
+        self.assertParsesToRange('previous_year',
+            '2013-01-01', '2013-12-31'
         )
-        self.assertParsesToRange('previous_month',
-            '2013-12-01', '2013-12-31',
-            dt = datetime.date(2014, 1, 1)
-        )
+
 
 if __name__ == "__main__":
     unittest.main()

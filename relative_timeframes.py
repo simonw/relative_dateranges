@@ -167,3 +167,13 @@ def previous_n_months(dt, n):
 @match('previous_month')
 def previous_month(dt):
 	return previous_n_months(dt, 1)
+
+@match(re.compile('^previous_(\d+)_years$'))
+def previous_n_years(dt, n):
+	end = dt.replace(day = 1, month = 1) - datetime.timedelta(days = 1)
+	start = end.replace(day = 1, month = 1, year = end.year - (n - 1))
+	return start, end
+
+@match('previous_year')
+def previous_year(dt):
+	return previous_n_years(dt, 1)
