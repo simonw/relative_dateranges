@@ -1,7 +1,7 @@
 import unittest
 import datetime
 
-from relative_timeframes import parse_relative_daterange, RelativeParseError
+from relative_dateranges import parse_relative_daterange, RelativeParseError
 
 DEFAULT_TEST_DATE = datetime.date(2014, 3, 18)
 
