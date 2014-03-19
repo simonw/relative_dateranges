@@ -21,6 +21,8 @@ class TestParseDate(unittest.TestCase):
             self.assertRaises(RelativeParseError, parse_date, bad)
 
     def test_implemented_all_the_planned_methods(self):
+        implemented = []
+        not_implemented = []
         for input in (
             'today', 'yesterday',
             'this_day', 'this_week', 'this_month', 'this_year',
@@ -30,7 +32,16 @@ class TestParseDate(unittest.TestCase):
             'next_day', 'next_week', 'next_month', 'next_year',
             'next_2_days', 'next_2_weeks', 'next_2_months', 'next_2_years',
         ):
-            self.assert_(parse_date(input))
+            try:
+                parse_date(input)
+                implemented.append(input)
+            except RelativeParseError:
+                not_implemented.append(input)
+        if not_implemented:
+            self.assert_(False, 'Done %s/%s - not yet implemented: %s' % (
+                len(implemented), len(implemented) + len(not_implemented),
+                (', '.join(not_implemented))
+            ))
 
 	def test_today(self):
 		self.assertParsesToRange('today',
