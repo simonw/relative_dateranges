@@ -42,21 +42,21 @@ class TestParseDate(unittest.TestCase):
                 (', '.join(not_implemented))
             ))
 
-	def test_today(self):
-		self.assertParsesToRange('today',
-			'2014-03-18', '2014-03-18'
-		)
+    def test_today(self):
+        self.assertParsesToRange('today',
+            '2014-03-18', '2014-03-18'
+        )
 
-	def test_this_day(self):
-		self.assertParsesToRange('this_day',
-			'2014-03-18', '2014-03-18'
-		)
+    def test_this_day(self):
+        self.assertParsesToRange('this_day',
+            '2014-03-18', '2014-03-18'
+        )
 
-	def test_this_week(self):
-		# Weeks start on Sunday
-		self.assertParsesToRange('this_week',
-			'2014-03-16', '2014-03-22'
-		)
+    def test_this_week(self):
+        # Weeks start on Sunday
+        self.assertParsesToRange('this_week',
+            '2014-03-16', '2014-03-22'
+        )
 
     def test_this_month(self):
         self.assertParsesToRange('this_month',
