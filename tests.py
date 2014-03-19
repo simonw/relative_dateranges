@@ -89,5 +89,13 @@ class TestParseDate(unittest.TestCase):
             '2014-03-01', '2017-03-31'
         )
 
+    def test_this_x_years(self):
+        self.assertParsesToRange('this_2_years',
+            '2014-01-01', '2015-12-31'
+        )
+        self.assertParsesToRange('this_5_years',
+            '2014-01-01', '2018-12-31'
+        )
+
 if __name__ == "__main__":
     unittest.main()

@@ -76,3 +76,10 @@ def this_x_months(dt, m):
 		year = start.year + years
 	) - datetime.timedelta(days = 1)
 	return start, end
+
+@match(re.compile('^this_(\d+)_years$'))
+def this_x_years(dt, m):
+	n = int(m.group(1))
+	start = dt.replace(day = 1, month = 1)
+	end = dt.replace(day = 31, month = 12, year = start.year + (n - 1))
+	return start, end
