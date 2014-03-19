@@ -1,6 +1,12 @@
 relative_dateranges
 ===================
 
+Given a string such as today, next_week, previous_6_months, returns an inclusive daterange describing the requested time period.
+
+e.g. if today's date is 18th March 2014, 'previous_week' will return 9th to 15th March inclusive, 'this_week' will return 16th through 22nd inclusive, 'next_week' will return 23rd through 29th inclusive.
+
+Treats weeks as starting on Sunday and ending on Saturday, because Americans are odd.
+
 Example usage:
 
 	>>> from relative_dateranges import parse_relative_daterange
