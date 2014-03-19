@@ -83,3 +83,29 @@ def this_x_years(dt, m):
 	start = dt.replace(day = 1, month = 1)
 	end = dt.replace(day = 31, month = 12, year = start.year + (n - 1))
 	return start, end
+
+@match('next_day')
+@match('tomorrow')
+def tomorrow(dt, m):
+	start = dt + datetime.timedelta(days = 1)
+	return start, start
+
+@match('previous_day')
+@match('yesterday')
+def yesterday(dt, m):
+	start = dt - datetime.timedelta(days = 1)
+	return start, start
+
+@match(re.compile('^next_(\d+)_days$'))
+def next_x_days(dt, m):
+	n = int(m.group(1))
+	start = dt + datetime.timedelta(days = 1) # tomorrow
+	end = start + datetime.timedelta(days = n - 1)
+	return start, end
+
+@match(re.compile('^next_week$'))
+def next_week(dt, m):
+	start, end = this_week(dt, None)
+	start = start + datetime.timedelta(days = 7)
+	end = end + datetime.timedelta(days = 7)
+	return start, end

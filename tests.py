@@ -51,7 +51,6 @@ class TestParseDate(unittest.TestCase):
             dt = datetime.date(2014, 12, 12)
         )
 
-
     def test_this_year(self):
         self.assertParsesToRange('this_year',
             '2014-01-01', '2014-12-31'
@@ -96,6 +95,48 @@ class TestParseDate(unittest.TestCase):
         self.assertParsesToRange('this_5_years',
             '2014-01-01', '2018-12-31'
         )
+
+    def test_tomorrow(self):
+        self.assertParsesToRange('next_day',
+            '2014-03-19', '2014-03-19'
+        )
+        self.assertParsesToRange('tomorrow',
+            '2014-03-19', '2014-03-19'
+        )
+        self.assertParsesToRange('tomorrow',
+            '2014-04-01', '2014-04-01',
+            dt = datetime.date(2014, 3, 31)
+        )
+
+    def test_yesterday(self):
+        self.assertParsesToRange('previous_day',
+            '2014-03-17', '2014-03-17'
+        )
+        self.assertParsesToRange('yesterday',
+            '2014-03-17', '2014-03-17'
+        )
+        self.assertParsesToRange('yesterday',
+            '2014-03-31', '2014-03-31',
+            dt = datetime.date(2014, 4, 1)
+        )
+
+    def test_next_x_days(self):
+        self.assertParsesToRange('next_3_days',
+            '2014-03-19', '2014-03-21'
+        )
+        self.assertParsesToRange('next_40_days',
+            '2014-03-19', '2014-04-27'
+        )
+
+    def test_next_week(self):
+        self.assertParsesToRange('next_week',
+            '2014-03-23', '2014-03-29'
+        )
+        self.assertParsesToRange('next_week',
+            '2015-01-04', '2015-01-10',
+            dt = datetime.date(2014, 12, 31)
+        )
+
 
 if __name__ == "__main__":
     unittest.main()
