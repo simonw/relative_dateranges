@@ -8,7 +8,9 @@ DEFAULT_TEST_DATE = datetime.date(2014, 3, 18)
 class TestParseDate(unittest.TestCase):
     def assertParsesToRange(self, input, expected_start, expected_end, dt=None):
         dt = dt or DEFAULT_TEST_DATE
-        range_start, range_end = map(str, parse_relative_daterange(input, dt))
+        range_start, range_end = parse_relative_daterange(input, dt)
+        expected_start = expected_start and datetime.date(*map(int, expected_start.split('-'))) or None
+        expected_end = expected_end and datetime.date(*map(int, expected_end.split('-'))) or None
         self.assertEqual((expected_start, expected_end), (range_start, range_end), 
             'input = %s, expected = %s, got %s' % (
             input, (expected_start, expected_end), (range_start, range_end)
@@ -28,7 +30,7 @@ class TestParseDate(unittest.TestCase):
             'previous_day', 'previous_week', 'previous_month', 'previous_year',
             'previous_n_days', 'previous_n_weeks', 'previous_n_months', 'previous_n_years',
             'next_day', 'next_week', 'next_month', 'next_year',
-            'next_n_days', 'next_n_weeks', 'next_n_months', 'next_n_years',
+            'next_n_days', 'next_n_weeks', 'next_n_months', 'next_n_years', 'future', 'past', 'upcoming'
         ):
             complete_input = input.replace('_n_', '_2_')
             try:
@@ -236,6 +238,21 @@ class TestParseDate(unittest.TestCase):
     def test_previous_year(self):
         self.assertParsesToRange('previous_year',
             '2013-01-01', '2013-12-31'
+        )
+
+    def test_future(self):
+        self.assertParsesToRange('future',
+            '2014-03-19', None
+        )
+
+    def test_upcoming(self):
+        self.assertParsesToRange('upcoming',
+            '2014-03-18', None
+        )
+
+    def test_past(self):
+        self.assertParsesToRange('past',
+            None, '2014-03-17'
         )
 
 

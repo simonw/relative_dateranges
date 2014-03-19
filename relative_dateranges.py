@@ -177,3 +177,18 @@ def previous_n_years(dt, n):
 @match('previous_year')
 def previous_year(dt):
     return previous_n_years(dt, 1)
+
+@match('future')
+def future(dt):
+    "Future = events from tomorrow onwards"
+    return next_day(dt)[0], None
+
+@match('past')
+def past(dt):
+    "Past = events prior to today"
+    return None, previous_day(dt)[0]
+
+@match('upcoming')
+def upcoming(dt):
+    "Upcoming = events from today onwards"
+    return this_day(dt)[0], None
