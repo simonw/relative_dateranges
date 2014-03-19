@@ -157,3 +157,13 @@ def previous_n_weeks(dt, n):
 @match('previous_week')
 def previous_week(dt):
 	return previous_n_weeks(dt, 1)
+
+@match(re.compile('^previous_(\d+)_months$'))
+def previous_n_months(dt, n):
+	end = dt.replace(day = 1) - datetime.timedelta(days = 1)
+	start = _add_months(end, -(n - 1)).replace(day = 1)
+	return start, end
+
+@match('previous_month')
+def previous_month(dt):
+	return previous_n_months(dt, 1)
