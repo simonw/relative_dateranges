@@ -1,7 +1,7 @@
 import unittest
 import datetime
 
-from relative_timeframes import parse_date
+from relative_timeframes import parse_date, RelativeParseError
 
 DEFAULT_TEST_DATE = datetime.date(2014, 3, 18)
 
@@ -15,6 +15,10 @@ class TestParseDate(unittest.TestCase):
         self.assertEqual(range_end, expected_end, 'input = %s, expected end = %s, got %s' % (
             input, expected_end, range_end
         ))
+
+    def test_fails_correctly(self):
+        for bad in ('this', 'is', 'bad', 'data'):
+            self.assertRaises(RelativeParseError, parse_date, bad)
 
 	def test_today(self):
 		self.assertParsesToRange('today',

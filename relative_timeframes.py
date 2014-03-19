@@ -2,6 +2,9 @@ import datetime, re
 
 handlers = []
 
+class RelativeParseError(ValueError):
+	pass
+
 def parse_date(input, dt=None):
 	for string_or_regex, fn in handlers:
 		if isinstance(string_or_regex, basestring):
@@ -13,7 +16,7 @@ def parse_date(input, dt=None):
 			if m:
 				return fn(dt, m)
 	# If we get here, no match!
-	assert False, 'bad input: %s' % input
+	raise RelativeParseError('bad input: %s' % input)
 
 def match(string_or_regex):
 	def inner(fn):
