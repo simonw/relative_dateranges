@@ -20,6 +20,18 @@ class TestParseDate(unittest.TestCase):
         for bad in ('this', 'is', 'bad', 'data'):
             self.assertRaises(RelativeParseError, parse_date, bad)
 
+    def test_implemented_all_the_planned_methods(self):
+        for input in (
+            'today', 'yesterday',
+            'this_day', 'this_week', 'this_month', 'this_year',
+            'this_2_days', 'this_2_weeks', 'this_2_months', 'this_2_years',
+            'previous_day', 'previous_week', 'previous_month', 'previous_year',
+            'previous_2_days', 'previous_2_weeks', 'previous_2_months', 'previous_2_years',
+            'next_day', 'next_week', 'next_month', 'next_year',
+            'next_2_days', 'next_2_weeks', 'next_2_months', 'next_2_years',
+        ):
+            self.assert_(parse_date(input))
+
 	def test_today(self):
 		self.assertParsesToRange('today',
 			'2014-03-18', '2014-03-18'
